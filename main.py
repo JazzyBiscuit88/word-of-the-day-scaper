@@ -5,14 +5,14 @@ from bs4 import BeautifulSoup
 
 #date header
 today = date.today()
-print("Word Of The Day for", today, "is: ")
+print(f"Word Of The Day for {today} is: ")
 
 #url link
 url = 'https://www.merriam-webster.com/word-of-the-day'
 response = requests.get(url).text
+soup = BeautifulSoup(response, 'html.parser')
 
 #word-of-the-day
-soup = BeautifulSoup(response, 'html.parser')
 wotd = soup.findAll('h1')[0]
 
 #class
@@ -30,6 +30,6 @@ print(wotd.text.upper(), "-", word_class.text)
 print()
 for el in definitions:
     print(el.text)
-print()
 print(dyk.text)
+
 
