@@ -3,33 +3,38 @@ import urllib.request
 from datetime import date
 from bs4 import BeautifulSoup
 
+
+try:
 #date header
-today = date.today()
-print(f"Word Of The Day for {today} is: ")
+    today = date.today()
+    print(f"Word Of The Day for {today.strftime('%b %d %Y')} is: ")
+    print()
 
 #url link
-url = 'https://www.merriam-webster.com/word-of-the-day'
-response = requests.get(url).text
-soup = BeautifulSoup(response, 'html.parser')
+    url = 'https://www.merriam-webster.com/word-of-the-day'
+    response = requests.get(url).text
+    soup = BeautifulSoup(response, 'html.parser')
 
 #word-of-the-day
-wotd = soup.findAll('h1')[0]
+    wotd = soup.findAll('h1')[0]
 
 #class
-word_class = soup.find("span", class_='main-attr')
+    word_class = soup.find("span", class_='main-attr')
 
 #definitions
-definitions = soup.select("div.wod-definition-container > p")
-
+    definitions = soup.select("div.wod-definition-container > p")
 
 #did-you-know?
-dyk = soup.find("div", class_='left-content-box')
+    dyk = soup.find("div", class_='left-content-box')
 
 
-print(wotd.text.upper(), "-", word_class.text)
-print()
-for el in definitions:
-    print(el.text)
-print(dyk.text)
+    print(wotd.text.upper(), "-", word_class.text)
+    print()
+    for el in definitions:
+       print(el.text)
+    print(dyk.text)
+
+except:
+    print("Check your connection...")
 
 
